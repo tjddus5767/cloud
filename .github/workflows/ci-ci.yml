@@ -39,5 +39,5 @@ jobs:
       # 5. Kubernetes 클러스터에 배포
       - name: Deploy to Kubernetes
         run: |
-          kubectl apply -f backend/deployment.yaml
-          kubectl apply -f backend/service.yaml
+          kubectl apply -f deployment.yaml
+          kubectl apply -f service.yaml
