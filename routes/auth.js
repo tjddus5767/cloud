@@ -57,6 +57,9 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.error('Error logging in:', err);
     res.status(500).json({ error: 'Failed to log in' });
+    console.log("Received data:", req.body);
+    console.error('Error logging in:', err);  // 에러 출력
+
   }
 });
 
