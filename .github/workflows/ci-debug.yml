@@ -1,0 +1,45 @@
+name: CI Debugging Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Docker Hub 로그인 (시크릿을 활용한 로그인)
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # 시크릿 값 확인
+      - name: Check if secrets are set
+        run: |
+          if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
+            echo "DOCKER_USERNAME is NOT set"
+          else
+            echo "DOCKER_USERNAME is set"
+          fi
+          if [ -z "${{ secrets.DOCKER_PASSWORD }}" ]; then
+            echo "DOCKER_PASSWORD is NOT set"
+          else
+            echo "DOCKER_PASSWORD is set"
+          fi
+
+      # Docker 이미지 빌드 (디버깅용)
+      - name: Build Docker image
+        run: |
+          docker build -t tjddus5767/my-node-app .
+
+      # Docker 이미지 푸시 (디버깅용)
+      - name: Push Docker image
+        run: |
+          docker push tjddus5767/my-node-app
