@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # 시크릿 값 확인
+      # 시크릿 값 확인D
       - name: Check if secrets are set
         run: |
           if [ -z "${{ secrets.DOCKER_USERNAME }}" ]; then
