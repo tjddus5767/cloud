@@ -3,6 +3,7 @@ const router = express.Router(); // 라우터 선언
 const pool = require('../db');
 
 // 연락처 추가
+// 연락처 추가
 router.post('/', async (req, res) => {
     const { name, email, phone } = req.body;
 
@@ -26,7 +27,9 @@ router.post('/', async (req, res) => {
     }
 });
 
+
 // 연락처 목록 조회 (GET)
+// 연락처 목록 조회
 router.get('/', async (req, res) => {
     if (!req.session.userId) {
         return res.status(401).json({ error: 'User not logged in' });
@@ -37,6 +40,8 @@ router.get('/', async (req, res) => {
             'SELECT * FROM contacts WHERE user_id = ?',
             [req.session.userId]
         );
+
+        console.log('Contacts fetched:', contacts);  // 로그 추가
 
         res.json(contacts);
     } catch (err) {
