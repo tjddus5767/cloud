@@ -10,7 +10,7 @@ on:
 
 jobs:
   build_and_deploy:
-    runs-on: ubuntu-latest # Ubuntu 최신 버전에서 실행
+    runs-on: ubuntu-latest # Ubuntu 최신 버전에서 실행d
 
     steps:
       # 1. Checkout 소스 코드
