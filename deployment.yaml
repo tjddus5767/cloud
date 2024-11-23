@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deployment
+  labels:
+    app: nodejs-app
+spec:
+  replicas: 1 # 파드 수
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app
+    spec:
+      containers:
+        - name: nodejs-container
+          image: tjddus5767/my-node-app:latest # Docker Hub에 업로드한 Node.js 이미지
+          ports:
+            - containerPort: 3000 # Node.js 애플리케이션이 실행되는 포트
+          resources:
+            requests:
+              memory: "128Mi" # 최소 메모리 요청
+              cpu: "250m" # 최소 CPU 요청
+            limits:
+              memory: "256Mi" # 최대 메모리 제한
+              cpu: "500m" # 최대 CPU 제한
+          env:
+            - name: NODE_ENV # 환경 변수 설정 (예시)
+              value: "production"
