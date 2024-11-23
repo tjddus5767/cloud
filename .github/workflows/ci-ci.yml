@@ -32,11 +32,11 @@ jobs:
 
       # 4. Kubernetes 설정
       - name: Set up Kubeconfig
-        uses: azure/setup-kubectl@v1
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG }} # GitHub Secrets에 저장된 Kubeconfig
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
 
-      # 5. Kubernetes 클러스터에 배포SS
+      # 5. Kubernetes 클러스터에 배포
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f deployment.yaml
