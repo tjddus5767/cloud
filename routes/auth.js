@@ -1,15 +1,22 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const mysql = require('mysql2/promise');  // mysql2/promise로 변경
 
-const pool = require('../db');
+const pool = mysql.createPool({
+  host: 'mysql-service',  // Kubernetes 서비스 이름
+  port: 3306,             // MySQL의 기본 포트
+  user: 'root',           // MySQL 사용자 이름
+  password: 'root1234!!', // 비밀번호
+  database: 'addressbook' // 데이터베이스 이름
+});
+
 const router = express.Router();
 
-// 회원가입
 // 회원가입
 router.post('/signup', async (req, res) => {
   const { name, email, password } = req.body;
 
-  console.log("Received data:", req.body);  // 추가: 요청 본문 출력
+  console.log("Received data:", req.body);  // 요청 본문 출력
 
   if (!name || !email || !password) {
     return res.status(400).json({ error: 'All fields are required' });
@@ -27,7 +34,6 @@ router.post('/signup', async (req, res) => {
 });
 
 // 로그인
-
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -37,6 +43,7 @@ router.post('/login', async (req, res) => {
   }
 
   try {
+    // MySQL에서 사용자 정보 조회
     const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
 
     if (rows.length === 0) {
@@ -57,14 +64,7 @@ router.post('/login', async (req, res) => {
   } catch (err) {
     console.error('Error logging in:', err);
     res.status(500).json({ error: 'Failed to log in' });
-    console.log("Received data:", req.body);
-    console.error('Error logging in:', err);  // 에러 출력
-
   }
 });
-
-
-
-
 
 module.exports = router;
