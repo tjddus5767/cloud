@@ -92,7 +92,7 @@ app.use(
 
 // CORS 설정
 app.use(cors({
-    origin: 'http://127.0.0.1:8080', // 허용할 프론트엔드 URL
+    origin: 'http://125.6.39.209:80', // 허용할 프론트엔드 URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // 허용할 HTTP 메서드
     credentials: true // 쿠키 포함 여부
 }));
