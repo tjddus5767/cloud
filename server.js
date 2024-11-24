@@ -103,7 +103,7 @@ app.use(
 
 // CORS 설정 (프론트엔드의 실제 주소로 변경)
 app.use(cors({
-    origin: 'http://125.6.39.209:80',  // 실제 프론트엔드 URL로 변경
+    origin: 'http://125.6.39.209',  // 실제 프론트엔드 URL로 변경
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true  // 쿠키 포함
 }));
